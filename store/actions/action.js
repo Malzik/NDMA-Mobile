@@ -15,6 +15,21 @@ const getData = () => {
         )
 };
 
+const getSensorData = id => dispatch => {
+    mqttApi
+        .getSensorData(id)
+        .then(res => {
+            dispatch({
+                type: 'GET_SENSOR_DATA',
+                res
+            })
+        })
+        .catch((err) =>
+                console.log(err)
+            // ToastAndroid.show('Connexion au serveur impossible', ToastAndroid.LONG)
+        )
+};
+
 const login = (username, password) => dispatch => {
     mqttApi
         .login(username, password)
@@ -32,5 +47,6 @@ const login = (username, password) => dispatch => {
 
 export {
     getData,
+    getSensorData,
     login
 };

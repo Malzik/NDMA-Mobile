@@ -10,6 +10,9 @@ const reducer = (state = initialState, action = {}) => {
         case 'GET_DATA':
             newState.data = action.data;
             break;
+        case 'GET_SENSOR_DATA':
+            newState.sensor = action.res;
+            break;
         case 'LOGIN':
             newState.token = action.res.token;
             break;

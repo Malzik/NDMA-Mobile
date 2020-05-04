@@ -8,7 +8,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 
 import BottomTabNavigator from './navigation/BottomTabNavigator';
-import LoginScreen from "./screens/LoginScreen";
+import LoginScreen from "./screens/Login/LoginScreen";
 
 const Stack = createStackNavigator();
 
@@ -19,8 +19,6 @@ class App extends React.Component {
     this.state = {
       fontIsLoaded: false
     };
-
-    console.log(props);
   }
 
   async componentDidMount(): void {
