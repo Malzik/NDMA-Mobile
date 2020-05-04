@@ -6,6 +6,7 @@ import {Login} from "../components/Login/LoginComponent";
 import {bindActionCreators} from "redux";
 import * as actions from "../store/actions/action";
 import {connect} from "react-redux";
+import styles from "./style"
 
 class LoginScreen extends React.Component {
     constructor(props) {
