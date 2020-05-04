@@ -6,7 +6,8 @@ import {bindActionCreators} from "redux";
 import * as actions from "../../store/actions/action";
 
 import styles from "./style"
-import ButtonObject from "../ButtonObject/ButtonObjectComponent";
+
+import {Temperature} from "../Temperature/TemperatureComponent";
 
 class HomeComponent extends React.Component {
     constructor(props) {
@@ -16,7 +17,7 @@ class HomeComponent extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-                <ButtonObjectComponent/>
+                <Temperature value={21.5} title={"Capteur 1"}/>
             </View>
         )
     }
