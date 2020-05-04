@@ -1,5 +1,5 @@
 import React from "react";
-import {View, Text} from "react-native";
+import {Text, View} from "react-native";
 import {connect} from "react-redux";
 
 import {bindActionCreators} from "redux";
@@ -8,13 +8,12 @@ import * as actions from "../../store/actions/action";
 import styles from "./style"
 
 import {Temperature} from "../Temperature/TemperatureComponent";
-import {Humidite, Humidity} from "../Humidity/HumidityComponent";
+import {Humidity} from "../Humidity/HumidityComponent";
 import {FlatGrid} from "react-native-super-grid";
 
 class HomeComponent extends React.Component {
     constructor(props) {
         super(props);
-        this.state
     }
 
     render() {

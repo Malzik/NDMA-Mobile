@@ -14,6 +14,9 @@ class LoginComponent extends React.Component {
             username: "",
             password: ""
         };
+        if (this.props.reducer.token !== null) {
+            this.props.navigation.navigate("Home")
+        }
     }
 
     async handleSubmit() {

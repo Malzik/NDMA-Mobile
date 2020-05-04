@@ -6,7 +6,7 @@ import HomeScreen from '../screens/Home/HomeScreen';
 import InfoScreen from "../screens/Info/InfoScreen";
 
 const BottomTab = createBottomTabNavigator();
-const INITIAL_ROUTE_NAME = 'Login';
+const INITIAL_ROUTE_NAME = 'Home';
 
 export default function BottomTabNavigator({ navigation, route }) {
     // Set the header title on the parent stack navigator depending on the
