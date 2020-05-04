@@ -1,6 +1,7 @@
 const initialState = {
     data: null,
-    token: null
+    token: null,
+    sensor: null
 };
 
 const reducer = (state = initialState, action = {}) => {

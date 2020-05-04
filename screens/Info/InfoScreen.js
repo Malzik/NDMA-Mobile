@@ -21,17 +21,13 @@ class InfoScreen extends React.Component {
     }
 
     async componentDidMount(): void {
-        await this.getSensorData().then(() => {
+        await this.props.getSensorData(1).then(() => {
             this.setState({
                 temperature: this.props.reducer.sensor.temperature,
                 unit: this.props.reducer.sensor.unit,
                 data: this.props.reducer.sensor.data
             });
         });
-    }
-
-    async getSensorData() {
-        await this.props.getSensorData(1);
     }
 
     render() {

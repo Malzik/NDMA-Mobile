@@ -17,6 +17,7 @@ const mockLogin = {
 
 const mqttApi = {
     get: () => {
+        return Promise.resolve(mockGetData);
         new Promise((resolve, reject) => {
             resolve(mockGetData)
         })
