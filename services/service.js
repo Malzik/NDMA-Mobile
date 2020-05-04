@@ -18,6 +18,7 @@ const mockGetData = [
 ];
 
 const mockGetSensorData = {
+    title: "Capteur 5",
     temperature: 19,
     unit: "°C",
     data: {

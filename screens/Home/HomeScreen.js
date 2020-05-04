@@ -1,6 +1,6 @@
 import * as React from 'react';
-import {Text, View, Button } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
+import {View} from 'react-native';
+import {ScrollView} from 'react-native-gesture-handler';
 import styles from './style'
 
 import {Home} from "../../components/Home/HomeComponent"
@@ -41,11 +41,12 @@ class HomeScreen extends React.Component {
     }
 
     render() {
+        console.log("HomeScreen", this.props.navigation);
         if(this.state.arrayData.length > 0){
             return (
                 <View style={styles.container}>
                     <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-                        <Home data={this.state.arrayData}/>
+                        <Home data={this.state.arrayData} navigation={this.props.navigation}/>
                     </ScrollView>
                 </View>
             );

@@ -16,7 +16,8 @@ class HomeComponent extends React.Component {
         super(props);
         this.state = {
             temperature: this.props.data.filter(sensor => sensor.type === "temperature"),
-            humidity: this.props.data.filter(sensor => sensor.type === "humidity")
+            humidity: this.props.data.filter(sensor => sensor.type === "humidity"),
+            navigation: props.navigation
         }
     }
 
@@ -27,16 +28,21 @@ class HomeComponent extends React.Component {
                 <FlatGrid
                     itemDimension={100}
                     items={valeurs}
-                    renderItem={({ item }) => (
+                    renderItem={({item}) => (
                         (item.type === "temperature"
-                            ? <Temperature value={item.value} title={item.title} color={item.color} unit={item.unit}/>
-                            : <Humidity value={item.value} title={item.title} color={item.color} unit={item.unit}/>))}/>
+                                ? <Temperature id={item.id} value={item.value} title={item.title} color={item.color}
+                                               unit={item.unit} navigation={this.state.navigation}/>
+                                : <Humidity id={item.id} value={item.value} title={item.title} color={item.color}
+                                            unit={item.unit} navigation={this.state.navigation}/>
+                        )
+                    )}
+                />
             </View>
         )
     }
 
     render() {
-        console.log( this.state.temperature)
+        console.log("HomeComponent", this.state.navigation);
         return (
             <View style={styles.container}>
                 {this.flatGrid("Température", this.state.temperature)}

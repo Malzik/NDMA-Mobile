@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {View} from 'react-native';
+import {Text, View} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import styles from './style'
 
@@ -14,6 +14,7 @@ class InfoScreen extends React.Component {
         super(props);
 
         this.state = {
+            id: this.props.route.params.id,
             temperature: null,
             unit: null,
             data: {}
@@ -21,7 +22,8 @@ class InfoScreen extends React.Component {
     }
 
     async componentDidMount(): void {
-        await this.getSensorData().then(() => {
+        await this.getSensorData(this.state.id).then(() => {
+            this.props.navigation.setOptions({title: this.props.reducer.sensor.title});
             this.setState({
                 temperature: this.props.reducer.sensor.temperature,
                 unit: this.props.reducer.sensor.unit,
@@ -30,8 +32,17 @@ class InfoScreen extends React.Component {
         });
     }
 
-    async getSensorData() {
-        await this.props.getSensorData(1);
+    async componentDidUpdate(prevProps: Readonly<P>, prevState: Readonly<S>, snapshot: SS): void {
+        if (this.state.id !== this.props.route.params.id) {
+            await this.getSensorData(this.props.route.params.id);
+            this.setState({
+                id: this.props.route.params.id
+            })
+        }
+    }
+
+    async getSensorData(id) {
+        await this.props.getSensorData(id);
     }
 
     render() {
@@ -39,6 +50,7 @@ class InfoScreen extends React.Component {
             return (
                 <View style={styles.container}>
                     <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
+                        <Text>{this.state.id}</Text>
                         <InfoComponent temperature={this.state.temperature} unit={this.state.unit}/>
                         <LineComponent data={this.state.data}/>
                     </ScrollView>
