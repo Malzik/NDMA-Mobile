@@ -1,5 +1,5 @@
 import React from "react";
-import {ToastAndroid, View} from "react-native";
+import {View} from "react-native";
 import {Button, Input} from 'react-native-elements';
 import {bindActionCreators} from "redux";
 import * as actions from "../../store/actions/action";
@@ -9,17 +9,20 @@ class LoginComponent extends React.Component {
 
     constructor(props) {
         super(props);
+
         this.state = {
-            username: null,
-            password: null
+            username: "",
+            password: ""
         };
-        console.log(this);
     }
 
-    handleSubmit() {
-        console.log(this.props);
-        this.props.login();
-        ToastAndroid.show(this.props.action.token, ToastAndroid.LONG);
+    async handleSubmit() {
+        await this.props.login(this.state.username, this.state.password);
+
+        if (this.props.reducer.token !== null) {
+            this.props.navigation.navigate("Home");
+        }
+        // ToastAndroid.show(this.props.action.token, ToastAndroid.LONG);
     }
 
     render() {
@@ -42,8 +45,8 @@ class LoginComponent extends React.Component {
     }
 }
 
-
 LoginComponent.propTypes = {};
+
 const mapStateToProps = (state) => {
     return state
 };

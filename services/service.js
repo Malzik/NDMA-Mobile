@@ -1,15 +1,17 @@
 const mockGetData = {};
 
 const mockLogin = {
-    "token": "123"
+    token: "123"
 };
 
 const mqttApi = {
-    get: () =>
+    get: () => {
         new Promise((resolve, reject) => {
             resolve(mockGetData)
-        }),
-    login(username, password) {
+        })
+    },
+    login: (username, password) => {
+        return Promise.resolve(mockLogin);
         new Promise((resolve, reject) => {
             resolve(mockLogin)
         })

@@ -1,71 +1,54 @@
 import * as React from 'react';
-import {Platform, StatusBar, StyleSheet, View} from 'react-native';
+import {Platform, StatusBar} from 'react-native';
 import {store} from './store/store';
 import {Provider} from 'react-redux'
-import {SplashScreen} from 'expo';
 import * as Font from 'expo-font';
 import {Ionicons} from '@expo/vector-icons';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 
 import BottomTabNavigator from './navigation/BottomTabNavigator';
-import useLinking from './navigation/useLinking';
+import LoginScreen from "./screens/LoginScreen";
 
 const Stack = createStackNavigator();
 
-export default function App(props) {
-  const [isLoadingComplete, setLoadingComplete] = React.useState(false);
-  const [initialNavigationState, setInitialNavigationState] = React.useState();
-  const containerRef = React.useRef();
-  const { getInitialState } = useLinking(containerRef);
+class App extends React.Component {
+  constructor(props) {
+    super(props);
 
-  // Load any resources or data that we need prior to rendering the app
-  React.useEffect(() => {
-    async function loadResourcesAndDataAsync() {
-      try {
-        SplashScreen.preventAutoHide();
+    this.state = {
+      fontIsLoaded: false
+    };
 
-        // Load our initial navigation state
-        setInitialNavigationState(await getInitialState());
+    console.log(props);
+  }
 
-        // Load fonts
-        await Font.loadAsync({
-          ...Ionicons.font,
-          'space-mono': require('./assets/fonts/SpaceMono-Regular.ttf'),
-        });
-      } catch (e) {
-        // We might want to provide this error information to an error reporting service
-        console.warn(e);
-      } finally {
-        setLoadingComplete(true);
-        SplashScreen.hide();
-      }
-    }
+  async componentDidMount(): void {
+    await Font.loadAsync({
+      ...Ionicons.font,
+      'space-mono': require('./assets/fonts/SpaceMono-Regular.ttf'),
+    });
 
-    loadResourcesAndDataAsync();
-  }, []);
+    this.setState({fontIsLoaded: true});
+  }
 
-  if (!isLoadingComplete && !props.skipLoadingScreen) {
-    return null;
-  } else {
-    return (
-        <Provider store={store}>
-          <View style={styles.container}>
+  render() {
+    if (!this.state.fontIsLoaded) {
+      return null;
+    } else {
+      return (
+          <Provider store={store}>
             {Platform.OS === 'ios' && <StatusBar barStyle="default"/>}
-            <NavigationContainer ref={containerRef} initialState={initialNavigationState}>
-              <Stack.Navigator>
-                <Stack.Screen name="Root" component={BottomTabNavigator}/>
+            <NavigationContainer>
+              <Stack.Navigator screenOptions={{headerLeft: null}}>
+                <Stack.Screen name="Login" component={LoginScreen} options={{title: 'Connexion'}}/>
+                <Stack.Screen name="Home" component={BottomTabNavigator}/>
               </Stack.Navigator>
             </NavigationContainer>
-          </View>
-        </Provider>
-    );
+          </Provider>
+      );
+    }
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-});
+export default App;

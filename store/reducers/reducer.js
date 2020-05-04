@@ -11,7 +11,7 @@ const reducer = (state = initialState, action = {}) => {
             newState.data = action.data;
             break;
         case 'LOGIN':
-            newState.token = action.token;
+            newState.token = action.res.token;
             break;
         default:
             break;

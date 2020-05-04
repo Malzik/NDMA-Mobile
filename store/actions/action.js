@@ -1,8 +1,8 @@
 import {mqttApi} from "../../services/service";
-import {ToastAndroid} from "react-native";
 
 const getData = () => {
-    mqttApi.get()
+    mqttApi
+        .get()
         .then(res => {
             dispatch({
                 type: 'GET_DATA',
@@ -10,20 +10,23 @@ const getData = () => {
             })
         })
         .catch(() =>
-            ToastAndroid.show('Connexion au serveur impossible', ToastAndroid.LONG)
+                console.log("test")
+            // ToastAndroid.show('Connexion au serveur impossible', ToastAndroid.LONG)
         )
 };
 
-const login = (username, password) => {
-    mqttApi.login(username, password)
+const login = (username, password) => dispatch => {
+    mqttApi
+        .login(username, password)
         .then(res => {
             dispatch({
                 type: 'LOGIN',
                 res
             })
         })
-        .catch(() =>
-            ToastAndroid.show('Identifiants invalides', ToastAndroid.LONG)
+        .catch((err) =>
+                console.log(err)
+            // ToastAndroid.show('Identifiants invalides', ToastAndroid.LONG)
         )
 };
 
