@@ -4,10 +4,10 @@ import styles from "./style"
 import {bindActionCreators} from "redux";
 import * as actions from "../../store/actions/action";
 
-import temperature from "../../assets/images/temperature.png"
+import humidityimg from "../../assets/images/humidity.png"
 import {connect} from "react-redux";
 
-class TemperatureComponnent extends React.Component{
+class HumidityComponent extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
@@ -22,7 +22,7 @@ class TemperatureComponnent extends React.Component{
         return (
             <TouchableHighlight onPress={()=>alert("Erreur")}>
                 <View style={[styles.itemContainer, { backgroundColor: this.state.color}]}>
-                    <Image source={temperature} style={styles.image}/>
+                    <Image source={humidityimg} style={styles.image}/>
                     <Text style={styles.itemValue}>{this.state.value} {this.state.unit}</Text>
                     <Text style={styles.itemName}>{this.state.title}</Text>
                 </View>
@@ -32,7 +32,7 @@ class TemperatureComponnent extends React.Component{
     }
 }
 
-TemperatureComponnent.propTypes = {};
+HumidityComponent.propTypes = {};
 const mapStateToProps = (state) => {
     return state
 };
@@ -40,10 +40,10 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = dispatch =>
     bindActionCreators({...actions}, dispatch);
 
-const Temperature = connect(
+const Humidity = connect(
     mapStateToProps,
     mapDispatchToProps
-)(TemperatureComponnent);
+)(HumidityComponent);
 
-export {Temperature, TemperatureComponnent};
+export {Humidity, HumidityComponent};
 
