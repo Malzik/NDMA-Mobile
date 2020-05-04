@@ -2,14 +2,16 @@ import React from 'react';
 import {Text, View, TouchableHighlight} from 'react-native';
 import styles from "./style"
 import {bindActionCreators} from "redux";
+import * as actions from "../../store/actions/action";
+
 import {connect} from "react-redux";
 
 class TemperatureComponnent extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
-            title: null,
-            value: null
+            title: props.title,
+            value: props.value
         };
     }
 
