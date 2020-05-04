@@ -14,33 +14,33 @@ import {FlatGrid} from "react-native-super-grid";
 class HomeComponent extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            temperature: this.props.data.filter(sensor => sensor.type === "temperature"),
+            humidity: this.props.data.filter(sensor => sensor.type === "humidity")
+        }
+    }
+
+    flatGrid(name, valeurs){
+        return(
+            <View>
+                <Text style={styles.sectionHeader}>{name}</Text>
+                <FlatGrid
+                    itemDimension={100}
+                    items={valeurs}
+                    renderItem={({ item }) => (
+                        (item.type === "temperature"
+                            ? <Temperature value={item.value} title={item.title} color={item.color} unit={item.unit}/>
+                            : <Humidity value={item.value} title={item.title} color={item.color} unit={item.unit}/>))}/>
+            </View>
+        )
     }
 
     render() {
+        console.log( this.state.temperature)
         return (
             <View style={styles.container}>
-                <Text style={styles.sectionHeader}>Température</Text>
-                <FlatGrid
-                    itemDimension={100}
-                    items={[
-                        {value: 75, unit: "°F", title: "Capteur 1", color: "#e67e22"},
-                        {value: 21.5, unit: "°C", title: "Capteur 1", color: "#2c3e50"},
-                        {value: 21.5, unit: "°C", title: "Capteur 1", color: "#ecf0f1"},
-                        {value: 12, unit: "°F", title: "Capteur 1", color: "#7f8c8d"},
-                        ]}
-                    renderItem={({ item }) => (<Temperature value={item.value} title={item.title} color={item.color} unit={item.unit}/>)}
-                />
-                <Text style={styles.sectionHeader}>Humidite</Text>
-                <FlatGrid
-                    itemDimension={100}
-                    items={[
-                        {value: 10, unit: "%", title: "Capteur 1", color: "#e67e22"},
-                        {value: 20, unit: "%", title: "Capteur 1", color: "#2c3e50"},
-                        {value: 50, unit: "%", title: "Capteur 1", color: "#ecf0f1"},
-                        {value: 80, unit: "%", title: "Capteur 1", color: "#7f8c8d"},
-                    ]}
-                    renderItem={({ item }) => (<Humidity value={item.value} title={item.title} color={item.color} unit={item.unit}/>)}
-                />
+                {this.flatGrid("Température", this.state.temperature)}
+                {this.flatGrid("Humidité", this.state.humidity)}
             </View>
         )
     }

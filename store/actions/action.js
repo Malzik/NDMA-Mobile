@@ -1,8 +1,8 @@
 import {mqttApi} from "../../services/service";
 
-const getData = () => {
+const getData = () => dispatch => {
     mqttApi
-        .get()
+        .getData()
         .then(res => {
             dispatch({
                 type: 'GET_DATA',

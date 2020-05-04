@@ -1,5 +1,5 @@
 const initialState = {
-    data: null,
+    data: [],
     token: "1",
     sensor: null
 };
@@ -9,7 +9,7 @@ const reducer = (state = initialState, action = {}) => {
 
     switch (action.type) {
         case 'GET_DATA':
-            newState.data = action.data;
+            newState.data = action.res;
             break;
         case 'GET_SENSOR_DATA':
             newState.sensor = action.res;
