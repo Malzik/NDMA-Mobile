@@ -42,7 +42,6 @@ class HomeComponent extends React.Component {
     }
 
     render() {
-        console.log("HomeComponent", this.state.navigation);
         return (
             <View style={styles.container}>
                 {this.flatGrid("Température", this.state.temperature)}

@@ -41,7 +41,6 @@ class HomeScreen extends React.Component {
     }
 
     render() {
-        console.log("HomeScreen", this.props.navigation);
         if(this.state.arrayData.length > 0){
             return (
                 <View style={styles.container}>
