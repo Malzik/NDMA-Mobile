@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {View} from 'react-native';
+import {RefreshControl, View} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import styles from './style'
 
@@ -17,7 +17,7 @@ class HomeScreen extends React.Component {
         }
     }
 
-    async componentDidMount(): void {
+    async componentDidMount() {
         await this.getData().then(() => {
             const arrayData = [];
             this.props.reducer.data.forEach(sensor => {
@@ -31,7 +31,8 @@ class HomeScreen extends React.Component {
                 })
             });
             this.setState({
-                arrayData
+                arrayData,
+                refreshing:false
             });
         });
     }
@@ -40,11 +41,19 @@ class HomeScreen extends React.Component {
         await this.props.getData();
     }
 
+    doRefresh() {
+        alert("hello");
+    }
+
     render() {
         if(this.state.arrayData.length > 0){
             return (
                 <View style={styles.container}>
-                    <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
+                    <ScrollView
+                        style={styles.container}
+                        contentContainerStyle={styles.contentContainer}
+                        refreshControl={<RefreshControl refreshing={this.state.refreshing} onRefresh={this.doRefresh}/>}
+                    >
                         <Home data={this.state.arrayData} navigation={this.props.navigation}/>
                     </ScrollView>
                 </View>

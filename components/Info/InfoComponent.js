@@ -1,6 +1,8 @@
 import * as React from 'react';
 import {Text, View} from "react-native";
 
+import styles from "./style";
+
 class InfoComponent extends React.Component {
     constructor(props) {
         super(props);
@@ -13,8 +15,9 @@ class InfoComponent extends React.Component {
 
     render() {
         return (
-            <View>
-                <Text>Temperature: {this.state.temperature} {this.state.unit}</Text>
+            <View style={styles.container}>
+                <Text style={styles.title}>Temperature</Text>
+                <Text style={styles.value}>{this.state.temperature}{this.state.unit}</Text>
             </View>
         )
     }

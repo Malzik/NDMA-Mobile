@@ -21,7 +21,7 @@ class InfoScreen extends React.Component {
         }
     }
 
-    async componentDidMount(): void {
+    async componentDidMount() {
         await this.getSensorData(this.state.id).then(() => {
             this.props.navigation.setOptions({title: this.props.reducer.sensor.title});
             this.setState({
@@ -50,7 +50,6 @@ class InfoScreen extends React.Component {
             return (
                 <View style={styles.container}>
                     <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-                        <Text>{this.state.id}</Text>
                         <InfoComponent temperature={this.state.temperature} unit={this.state.unit}/>
                         <LineComponent data={this.state.data}/>
                     </ScrollView>

@@ -1,10 +1,16 @@
 import {StyleSheet} from 'react-native';
+import * as colors from "../../constants/Colors"
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#2A2A2A',
+        padding: 10,
     },
+    errorMessage: {
+        color: colors.default.errorText,
+        fontSize: 17,
+        marginLeft:10,
+    }
 });
 
 export default styles

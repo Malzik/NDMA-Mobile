@@ -1,6 +1,6 @@
 const initialState = {
     data: [],
-    token: "1",
+    token: 1, //Mettre à null si on souhaite voir la page de connexion
     sensor: null
 };
 

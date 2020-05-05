@@ -1,9 +1,10 @@
 import React from "react";
-import {View} from "react-native";
+import {View, Text} from "react-native";
 import {Button, Input} from 'react-native-elements';
 import {bindActionCreators} from "redux";
 import * as actions from "../../store/actions/action";
 import {connect} from "react-redux";
+import styles from "./style"
 
 class LoginComponent extends React.Component {
 
@@ -12,7 +13,7 @@ class LoginComponent extends React.Component {
 
         this.state = {
             username: "",
-            password: ""
+            password: "",
         };
         if (this.props.reducer.token !== null) {
             this.props.navigation.navigate("Home")
@@ -30,19 +31,43 @@ class LoginComponent extends React.Component {
 
     render() {
         return (
-            <View>
+            <View style={styles.container}>
+                {!!this.state.usernameError && (
+                    <Text style={styles.errorMessage}>{this.state.usernameError}</Text>
+                )}
                 <Input
                     placeholder="Nom d'utilisateur"
-                    onChangeText={(text) => this.setState({username: text})}
+                    onChangeText={(text) => this.setState({username: text, usernameError:null})}
                     value={this.state.username}/>
+
+                {!!this.state.passwordError && (
+                    <Text style={styles.errorMessage}>{this.state.passwordError}</Text>
+                )}
                 <Input
                     placeholder='Mot de passe'
                     secureTextEntry={true}
-                    onChangeText={(text) => this.setState({password: text})}
+                    onChangeText={(text) => this.setState({password: text, passwordError: null})}
                     value={this.state.password}/>
+
                 <Button
                     title="Se connecter"
-                    onPress={() => this.handleSubmit()}/>
+                    onPress={() => {
+                        if (this.state.username.trim() === "") {
+                            this.setState(() => ({ usernameError: "Nom d'utlisateur requis." }));
+                        } else {
+                            this.setState(() => ({ usernameError: null }));
+                        }
+                        if (this.state.password.trim() === "") {
+                            this.setState(() => ({ passwordError: "Mot de passe requis." }));
+                        } else {
+                            this.setState(() => ({ passwordError: null }));
+                        }
+                        console.log(this.state.usernameError);
+                        console.log(this.state.passwordError);
+                        if(this.state.usernameError === null && this.state.passwordError === null){
+                            this.handleSubmit()
+                        }
+                    }}/>
             </View>
         );
     }

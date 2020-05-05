@@ -7,7 +7,7 @@ import * as actions from "../../store/actions/action";
 import temperature from "../../assets/images/temperature.png"
 import {connect} from "react-redux";
 
-class TemperatureComponnent extends React.Component{
+class TemperatureComponent extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
@@ -32,12 +32,11 @@ class TemperatureComponnent extends React.Component{
                     <Text style={styles.itemName}>{this.state.title}</Text>
                 </View>
             </TouchableHighlight>
-
         )
     }
 }
 
-TemperatureComponnent.propTypes = {};
+TemperatureComponent.propTypes = {};
 const mapStateToProps = (state) => {
     return state
 };
@@ -48,7 +47,7 @@ const mapDispatchToProps = dispatch =>
 const Temperature = connect(
     mapStateToProps,
     mapDispatchToProps
-)(TemperatureComponnent);
+)(TemperatureComponent);
 
-export {Temperature, TemperatureComponnent};
+export {Temperature, TemperatureComponent};
 
