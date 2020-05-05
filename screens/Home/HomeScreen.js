@@ -22,12 +22,11 @@ class HomeScreen extends React.Component {
             const arrayData = [];
             this.props.reducer.data.forEach(sensor => {
                 arrayData.push({
-                    id: sensor.id,
                     value: sensor.value,
                     unit: sensor.unit,
-                    title: sensor.title,
-                    color: sensor.color,
-                    type: sensor.type
+                    title: sensor.name,
+                    color: "#" + ((1 << 24) * Math.random() | 0).toString(16),
+                    type: sensor.name === ("HUM") ? "humidity" : "temperature"
                 })
             });
             this.setState({

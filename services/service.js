@@ -1,3 +1,5 @@
+import axios from "axios";
+
 const mockGetData = [
     {id: 1, value: 75, unit: "°F", title: "Capteur 1", color: "#e67e22", type: "temperature"},
     {id: 2, value: 21.5, unit: "°C", title: "Capteur 2", color: "#2c3e50", type: "temperature"},
@@ -35,15 +37,29 @@ const mockLogin = {
 
 const mqttApi = {
     getData: () => {
-        return Promise.resolve(mockGetData);
-        new Promise((resolve, reject) => {
-            resolve(mockGetData)
+        return new Promise((resolve, reject) => {
+            axios
+                .get(`https://mqtt.sepradc-serv.ovh/api/sensor`)
+                .then(res => {
+                    resolve(res)
+                })
+                .catch(error => {
+                    error.message = `${error.message}`;
+                    reject(error);
+                });
         })
     },
-    getSensorData: id => {
-        return Promise.resolve(mockGetSensorData);
-        new Promise((resolve, reject) => {
-            resolve(mockGetData)
+    getSensorData: name => {
+        return new Promise((resolve, reject) => {
+            axios
+                .get(`https://mqtt.sepradc-serv.ovh/api/sensor/${name}`)
+                .then(res => {
+                    resolve(res);
+                })
+                .catch(error => {
+                    error.message = `${error.message}`;
+                    reject(error);
+                });
         })
     },
     login: (username, password) => {

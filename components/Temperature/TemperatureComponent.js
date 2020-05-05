@@ -11,7 +11,6 @@ class TemperatureComponent extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
-            id: props.id,
             title: props.title,
             value: props.value,
             color: props.color,
@@ -23,7 +22,6 @@ class TemperatureComponent extends React.Component{
     render(){
         return (
             <TouchableHighlight onPress={() => this.state.navigation.navigate("Info", {
-                id: this.state.id,
                 title: this.state.title
             })}>
                 <View style={[styles.itemContainer, {backgroundColor: this.state.color}]}>

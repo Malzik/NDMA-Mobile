@@ -30,9 +30,9 @@ class HomeComponent extends React.Component {
                     items={valeurs}
                     renderItem={({item}) => (
                         (item.type === "temperature"
-                                ? <Temperature id={item.id} value={item.value} title={item.title} color={item.color}
+                                ? <Temperature value={item.value} title={item.title} color={item.color}
                                                unit={item.unit} navigation={this.state.navigation}/>
-                                : <Humidity id={item.id} value={item.value} title={item.title} color={item.color}
+                                : <Humidity value={item.value} title={item.title} color={item.color}
                                             unit={item.unit} navigation={this.state.navigation}/>
                         )
                     )}

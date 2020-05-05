@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Text, View} from 'react-native';
+import {View} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import styles from './style'
 
@@ -14,18 +14,20 @@ class InfoScreen extends React.Component {
         super(props);
 
         this.state = {
-            id: this.props.route.params.id,
+            name: this.props.route.params.title,
             temperature: null,
             unit: null,
             data: {}
         }
     }
 
-    async componentDidMount() {
-        await this.getSensorData(this.state.id).then(() => {
-            this.props.navigation.setOptions({title: this.props.reducer.sensor.title});
+    async componentDidMount(): void {
+        await this.getSensorData(this.state.name).then(() => {
+            this.props.navigation.setOptions({title: this.state.name});
+
+            let temperature = this.props.reducer.sensor.data[this.props.reducer.sensor.data.length - 1].value;
             this.setState({
-                temperature: this.props.reducer.sensor.temperature,
+                temperature: temperature,
                 unit: this.props.reducer.sensor.unit,
                 data: this.props.reducer.sensor.data
             });
@@ -33,16 +35,16 @@ class InfoScreen extends React.Component {
     }
 
     async componentDidUpdate(prevProps: Readonly<P>, prevState: Readonly<S>, snapshot: SS): void {
-        if (this.state.id !== this.props.route.params.id) {
-            await this.getSensorData(this.props.route.params.id);
+        if (this.state.name !== this.props.route.params.title) {
+            await this.getSensorData(this.props.route.params.title);
             this.setState({
-                id: this.props.route.params.id
+                name: this.props.route.params.title
             })
         }
     }
 
-    async getSensorData(id) {
-        await this.props.getSensorData(id);
+    async getSensorData(name) {
+        await this.props.getSensorData(name);
     }
 
     render() {

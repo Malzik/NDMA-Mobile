@@ -1,7 +1,7 @@
 import {mqttApi} from "../../services/service";
 
-const getData = () => dispatch => {
-    mqttApi
+const getData = () => async dispatch => {
+    return mqttApi
         .getData()
         .then(res => {
             dispatch({
@@ -9,15 +9,15 @@ const getData = () => dispatch => {
                 res
             })
         })
-        .catch(() =>
-                console.log("test")
+        .catch(err => {
+            console.log(err)
             // ToastAndroid.show('Connexion au serveur impossible', ToastAndroid.LONG)
-        )
+        })
 };
 
-const getSensorData = id => dispatch => {
-    mqttApi
-        .getSensorData(id)
+const getSensorData = name => dispatch => {
+    return mqttApi
+        .getSensorData(name)
         .then(res => {
             dispatch({
                 type: 'GET_SENSOR_DATA',

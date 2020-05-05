@@ -1,6 +1,6 @@
 const initialState = {
     data: [],
-    token: 1, //Mettre à null si on souhaite voir la page de connexion
+    token: 1,
     sensor: null
 };
 
@@ -9,10 +9,10 @@ const reducer = (state = initialState, action = {}) => {
 
     switch (action.type) {
         case 'GET_DATA':
-            newState.data = action.res;
+            newState.data = action.res.data;
             break;
         case 'GET_SENSOR_DATA':
-            newState.sensor = action.res;
+            newState.sensor = action.res.data;
             break;
         case 'LOGIN':
             newState.token = action.res.token;
