@@ -9,14 +9,18 @@ class InfoComponent extends React.Component {
 
         this.state = {
             temperature: this.props.temperature,
-            unit: this.props.unit
+            unit: this.props.unit,
+            cat: this.props.cat
         }
     }
 
     render() {
         return (
             <View style={styles.container}>
-                <Text style={styles.title}>Temperature</Text>
+                {this.state.unit === "%"
+                    ? <Text style={styles.title}>Humidite</Text>
+                    : <Text style={styles.title}>Temperature</Text>
+                }
                 <Text style={styles.value}>{this.state.temperature}{this.state.unit}</Text>
             </View>
         )
