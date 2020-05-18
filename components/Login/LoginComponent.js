@@ -1,10 +1,11 @@
 import React from "react";
-import {View, Text} from "react-native";
+import {Text, View} from "react-native";
 import {Button, Input} from 'react-native-elements';
 import {bindActionCreators} from "redux";
 import * as actions from "../../store/actions/action";
 import {connect} from "react-redux";
 import styles from "./style"
+import {mqttApi} from "../../services/service";
 
 class LoginComponent extends React.Component {
 
@@ -14,30 +15,39 @@ class LoginComponent extends React.Component {
         this.state = {
             username: "",
             password: "",
+            credentials: null,
         };
         if (this.props.reducer.token !== null) {
-            this.props.navigation.navigate("Home")
+            this.props.navigation.navigate("Sensor")
         }
     }
 
     async handleSubmit() {
-        await this.props.login(this.state.username, this.state.password);
-
-        if (this.props.reducer.token !== null) {
-            this.props.navigation.navigate("Home");
-        }
-        // ToastAndroid.show(this.props.action.token, ToastAndroid.LONG);
+        this.setState({
+            credentials: null
+        });
+        mqttApi
+            .login(this.state.username, this.state.password)
+            .then(() => {
+                this.props.navigation.navigate("Sensor");
+            })
+            .catch(() => {
+                    this.setState({
+                        credentials: "identifiants invalides"
+                    })
+                }
+            );
     }
 
     render() {
         return (
             <View style={styles.container}>
-                {!!this.state.usernameError && (
-                    <Text style={styles.errorMessage}>{this.state.usernameError}</Text>
+                {!!this.state.credentials && (
+                    <Text style={styles.errorMessage}>{this.state.credentials}</Text>
                 )}
                 <Input
                     placeholder="Nom d'utilisateur"
-                    onChangeText={(text) => this.setState({username: text, usernameError:null})}
+                    onChangeText={(text) => this.setState({username: text, usernameError: null})}
                     value={this.state.username}/>
 
                 {!!this.state.passwordError && (

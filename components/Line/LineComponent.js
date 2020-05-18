@@ -20,7 +20,7 @@ class LineComponent extends React.Component {
         const datasetsArray = [];
         this.props.data.forEach(value => {
             console.log(value);
-            const date = moment(new Date(value.date.date)).add(-new Date().getTimezoneOffset(), 'm').format('H:m');
+            const date = moment(new Date(value.date.date)).format('H:m');
             labelsArray.push(date);
             datasetsArray.push(value.value)
         });

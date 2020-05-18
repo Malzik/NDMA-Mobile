@@ -1,6 +1,6 @@
 const initialState = {
     data: [],
-    token: 1,
+    token: null,
     sensor: null
 };
 

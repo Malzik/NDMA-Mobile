@@ -41,7 +41,7 @@ class App extends React.Component {
               <Stack.Navigator>
                 <Stack.Screen name="Login" component={LoginScreen} options={{title: 'Connexion'}}/>
                 <Stack.Screen name="Info" component={InfoScreen}/>
-                <Stack.Screen name="Home" component={HomeScreen} options={{headerLeft: null}}/>
+                <Stack.Screen name="Sensor" component={HomeScreen} options={{headerLeft: null, title: 'Capteurs'}}/>
               </Stack.Navigator>
             </NavigationContainer>
           </Provider>

@@ -1,5 +1,8 @@
 import axios from "axios";
 
+// const url = "https://127.0.0.1:8000";
+const url = "https://mqtt.sepradc-serv.ovh";
+
 const mockGetData = [
     {id: 1, value: 75, unit: "°F", title: "Capteur 1", color: "#e67e22", type: "temperature"},
     {id: 2, value: 21.5, unit: "°C", title: "Capteur 2", color: "#2c3e50", type: "temperature"},
@@ -39,7 +42,7 @@ const mqttApi = {
     getData: () => {
         return new Promise((resolve, reject) => {
             axios
-                .get(`https://mqtt.sepradc-serv.ovh/api/sensor`)
+                .get(`${url}/api/sensor`)
                 .then(res => {
                     resolve(res)
                 })
@@ -52,7 +55,7 @@ const mqttApi = {
     getSensorData: name => {
         return new Promise((resolve, reject) => {
             axios
-                .get(`https://mqtt.sepradc-serv.ovh/api/sensor/${name}`)
+                .get(`${url}/api/sensor/${name}`)
                 .then(res => {
                     resolve(res);
                 })
@@ -63,9 +66,24 @@ const mqttApi = {
         })
     },
     login: (username, password) => {
-        return Promise.resolve(mockLogin);
-        new Promise((resolve, reject) => {
-            resolve(mockLogin)
+        return new Promise((resolve, reject) => {
+            const data = new FormData();
+            data.append('username', username);
+            data.append('password', password);
+            axios({
+                method: 'post',     //put
+                url: `${url}/api/login`,
+                headers: {},
+                data: data
+            })
+                .then(res => {
+                    console.log("success", res);
+                    resolve(res)
+                })
+                .catch(error => {
+                    console.log("error", error.message);
+                    reject(error)
+                });
         })
     }
 };
